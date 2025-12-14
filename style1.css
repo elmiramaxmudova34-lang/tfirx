@@ -1,0 +1,135 @@
+/* =================================== */
+/*      MOBIL QURILMALAR UCHUN         */
+/* =================================== */
+
+/* Planshetlar uchun (1024px gacha) */
+@media screen and (max-width: 1024px) {
+    .about-grid, .project-grid, .footer-content {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+    .about, .services, .pricing, .portfolio, .testimonials, .contact {
+        padding: 80px 5%;
+    }
+    .footer-content {
+        text-align: center;
+    }
+    .footer-social {
+        justify-content: center;
+    }
+}
+
+/* Telefonlar uchun (768px gacha) */
+@media screen and (max-width: 768px) {
+    body {
+        overflow-x: hidden; /* Mobil qurilmalarda gorizontal scrollni oldini olish */
+    }
+
+    /* Mobil Navigatsiya */
+    .nav-links {
+        position: fixed;
+        right: 0px;
+        height: 100vh;
+        top: 0;
+        background: var(--bg-dark);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 70%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in-out;
+        z-index: 100;
+    }
+
+    .nav-links li {
+        opacity: 0;
+        margin: 25px 0;
+    }
+
+    .burger {
+        display: block; /* Burger menyu ikonkasi ko'rinadi */
+        cursor: pointer;
+        z-index: 101;
+        position: relative;
+    }
+
+    .nav-active {
+        transform: translateX(0%);
+    }
+
+    @keyframes navLinkFade {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0px);
+        }
+    }
+
+    .toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .toggle .line2 {
+        opacity: 0;
+    }
+    .toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /* Boshqa sectionlar */
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .code-grid, .stats-container, .pricing-container {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonial-slider {
+        flex-direction: column;
+    }
+
+    .testimonial-item {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .floating-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 20px;
+    }
+
+    .floating-btn span {
+        display: none; /* Kichik ekranda yozuvni yashirish */
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+}
+
+/* Burger menyu stillari */
+.burger div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+.burger {
+    display: none; /* Odatda ko'rinmaydi */
+}
