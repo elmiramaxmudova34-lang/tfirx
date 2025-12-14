@@ -1,649 +1,135 @@
-/* ---
-   FirX Premium Portfolio Stylesheet
-   Author: Gemini Code Assist
-   Theme: Dark Neon
---- */
+/* =================================== */
+/*      MOBIL QURILMALAR UCHUN         */
+/* =================================== */
 
-/* 1. VARIABLES & RESET */
-:root {
-    --bg-color: #0d0d0d; /* Asosiy qora fon */
-    --primary-neon: #00f2ea; /* Asosiy neon rang (binafsha) */
-    --secondary-neon: #9f00ff; /* Ikkilamchi neon rang */
-    --text-color: #e0e0e0; /* Asosiy matn rangi */
-    --heading-color: #ffffff; /* Sarlavha rangi */
-    --card-bg: #1a1a1a; /* Kartochkalar foni */
-    --border-color: rgba(255, 255, 255, 0.1);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    overflow-x: hidden;
-}
-
-body.loading {
-    overflow: hidden;
-}
-
-/* 2. LOADER */
-#loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-.spinner {
-    width: 60px;
-    height: 60px;
-    border: 5px solid var(--border-color);
-    border-top-color: var(--primary-neon);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
+/* Planshetlar uchun (1024px gacha) */
+@media screen and (max-width: 1024px) {
+    .about-grid, .project-grid, .footer-content {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+    .about, .services, .pricing, .portfolio, .testimonials, .contact {
+        padding: 80px 5%;
+    }
+    .footer-content {
+        text-align: center;
+    }
+    .footer-social {
+        justify-content: center;
     }
 }
 
-/* DEVICE CHOOSER MODAL */
-#device-chooser-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-    z-index: 20000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 1rem;
+/* Telefonlar uchun (768px gacha) */
+@media screen and (max-width: 768px) {
+    body {
+        overflow-x: hidden; /* Mobil qurilmalarda gorizontal scrollni oldini olish */
+    }
+
+    /* Mobil Navigatsiya */
+    .nav-links {
+        position: fixed;
+        right: 0px;
+        height: 100vh;
+        top: 0;
+        background: var(--bg-dark);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 70%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in-out;
+        z-index: 100;
+    }
+
+    .nav-links li {
+        opacity: 0;
+        margin: 25px 0;
+    }
+
+    .burger {
+        display: block; /* Burger menyu ikonkasi ko'rinadi */
+        cursor: pointer;
+        z-index: 101;
+        position: relative;
+    }
+
+    .nav-active {
+        transform: translateX(0%);
+    }
+
+    @keyframes navLinkFade {
+        from {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0px);
+        }
+    }
+
+    .toggle .line1 {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .toggle .line2 {
+        opacity: 0;
+    }
+    .toggle .line3 {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    /* Boshqa sectionlar */
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .code-grid, .stats-container, .pricing-container {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonial-slider {
+        flex-direction: column;
+    }
+
+    .testimonial-item {
+        min-width: unset;
+        width: 100%;
+    }
+
+    .floating-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 20px;
+    }
+
+    .floating-btn span {
+        display: none; /* Kichik ekranda yozuvni yashirish */
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
 }
 
-.chooser-box {
-    background: var(--card-bg);
-    padding: 2rem 3rem;
-    border-radius: 15px;
-    border: 1px solid var(--border-color);
-    max-width: 450px;
-}
-
-.chooser-box h2 { color: var(--heading-color); margin-bottom: 0.5rem; }
-.chooser-box p { margin-bottom: 1.5rem; }
-.chooser-btns { display: flex; gap: 1rem; justify-content: center; }
-
-
-/* 3. NAVIGATION */
-#navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 5%;
-    z-index: 1000;
-    transition: background-color 0.3s ease, padding 0.3s ease;
-}
-
-#navbar.scrolled {
-    background-color: rgba(13, 13, 13, 0.85);
-    backdrop-filter: blur(10px);
-    padding: 0.75rem 5%;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.logo {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--heading-color);
-}
-
-.logo span {
-    color: var(--primary-neon);
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-}
-
-.nav-links li {
-    margin-left: 2.5rem;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 400;
-    position: relative;
-    transition: color 0.3s ease;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--primary-neon);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: var(--heading-color);
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-/* Burger Menu */
-.burger {
-    display: none;
-    cursor: pointer;
-}
-
+/* Burger menyu stillari */
 .burger div {
     width: 25px;
     height: 3px;
-    background-color: var(--heading-color);
+    background-color: white;
     margin: 5px;
     transition: all 0.3s ease;
 }
 
-.toggle .line1 {
-    transform: rotate(-45deg) translate(-5px, 6px);
+.burger {
+    display: none; /* Odatda ko'rinmaydi */
 }
-
-.toggle .line2 {
-    opacity: 0;
-}
-
-.toggle .line3 {
-    transform: rotate(45deg) translate(-5px, -6px);
-}
-
-/* 4. HERO SECTION */
-.hero {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 0 5%;
-    position: relative;
-    background: radial-gradient(ellipse at bottom, rgba(0, 242, 234, 0.1), transparent 60%);
-}
-
-.hero-content h1 {
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    font-weight: 800;
-    color: var(--heading-color);
-    line-height: 1.1;
-}
-
-.hero-content h1 span {
-    color: var(--primary-neon);
-    text-shadow: 0 0 15px var(--primary-neon);
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    margin: 1rem 0 2rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.hero-btns {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-}
-
-/* 5. BUTTONS (NEON EFFECT) */
-.btn {
-    padding: 12px 30px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-    cursor: pointer;
-    display: inline-block;
-}
-
-.btn.primary {
-    background-color: var(--primary-neon);
-    color: var(--bg-color);
-    box-shadow: 0 0 10px var(--primary-neon), 0 0 20px var(--primary-neon), 0 0 30px rgba(0, 242, 234, 0.5);
-}
-
-.btn.primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 15px var(--primary-neon), 0 0 30px var(--primary-neon), 0 0 45px rgba(0, 242, 234, 0.7);
-}
-
-.btn.secondary {
-    background-color: transparent;
-    color: var(--primary-neon);
-    border-color: var(--primary-neon);
-}
-
-.btn.secondary:hover {
-    background-color: var(--primary-neon);
-    color: var(--bg-color);
-    box-shadow: 0 0 10px var(--primary-neon);
-}
-
-/* 6. GENERAL SECTION STYLING */
-section {
-    padding: 100px 5%;
-}
-
-.section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 60px;
-    color: var(--heading-color);
-}
-
-.section-title span {
-    color: var(--primary-neon);
-}
-
-/* 7. ABOUT SECTION & CODE SHOWCASE */
-.about {
-    padding-top: 0;
-}
-.code-showcase {
-    background-color: #111;
-    padding: 80px 0;
-    border-radius: 20px;
-    margin-bottom: 100px;
-}
-
-.code-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 2rem;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-.code-window {
-    background: #1e1e1e;
-    border-radius: 10px;
-    padding: 1.5rem;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.window-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-.dot { height: 12px; width: 12px; border-radius: 50%; margin-right: 8px; }
-.dot.red { background: #ff5f56; }
-.dot.yellow { background: #ffbd2e; }
-.dot.green { background: #27c93f; }
-.file-name { font-family: monospace; color: #888; margin-left: auto; }
-
-pre { background: transparent; }
-code .keyword { color: #c586c0; }
-code .variable { color: #9cdcfe; }
-code .string { color: #ce9178; }
-code .function { color: #dcdcaa; }
-
-.experience-text h3 {
-    font-size: 2rem;
-    color: var(--heading-color);
-    margin-bottom: 1rem;
-}
-
-.about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 3rem;
-    align-items: center;
-}
-
-.about-img {
-    border-radius: 15px;
-    overflow: hidden; /* Kattalashganda rasm chetga chiqib ketmasligi uchun */
-    transition: box-shadow 0.4s ease;
-}
-
-.about-img img {
-    width: 100%;
-    display: block; /* Pastdagi bo'sh joyni olib tashlash uchun */
-    border-radius: 15px;
-    filter: grayscale(100%); /* Boshlang'ich kulrang holat */
-    transition: transform 0.4s ease, filter 0.4s ease;
-}
-
-.about-img:hover { box-shadow: 0 0 30px rgba(0, 242, 234, 0.3); }
-.about-img:hover img { transform: scale(1.05); /* Kattalashish effekti */ filter: grayscale(0%); /* Rangli holatga o'tish */ }
-
-.about-text h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-.about-text h2 span { color: var(--primary-neon); }
-.about-text p { line-height: 1.8; margin-bottom: 1rem; }
-
-/* 8. SERVICES SECTION */
-.services {
-    background-color: #111;
-}
-.services-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.card {
-    background: var(--card-bg);
-    padding: 2.5rem 2rem;
-    border-radius: 15px;
-    text-align: center;
-    border: 1px solid var(--border-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 25px rgba(0, 242, 234, 0.3);
-    border-color: var(--primary-neon);
-}
-
-.card i {
-    font-size: 3rem;
-    color: var(--primary-neon);
-    margin-bottom: 1.5rem;
-}
-
-.card h3 {
-    font-size: 1.5rem;
-    color: var(--heading-color);
-    margin-bottom: 1rem;
-}
-
-/* 9. TICKER */
-.ticker-wrap {
-    width: 100%;
-    overflow: hidden;
-    background: var(--primary-neon);
-    padding: 1rem 0;
-    white-space: nowrap;
-}
-
-.ticker {
-    display: inline-block;
-    animation: ticker-scroll 30s linear infinite;
-}
-
-.ticker-item {
-    display: inline-block;
-    padding: 0 2rem;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--bg-color);
-}
-
-@keyframes ticker-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* 10. PRICING */
-.pricing-container {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-}
-
-.price-card {
-    background: var(--card-bg);
-    padding: 2.5rem;
-    border-radius: 15px;
-    border: 1px solid var(--border-color);
-    width: 350px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.price-card.featured {
-    border-color: var(--primary-neon);
-    transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(0, 242, 234, 0.3);
-}
-
-.badge {
-    position: absolute;
-    top: 0;
-    right: -50px;
-    background: var(--primary-neon);
-    color: var(--bg-color);
-    padding: 5px 50px;
-    transform: rotate(45deg);
-    font-weight: 600;
-}
-
-.price-card h4 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--heading-color); }
-.amount { font-size: 3.5rem; font-weight: 800; color: var(--primary-neon); margin-bottom: 1.5rem; }
-.amount span { font-size: 1.5rem; font-weight: 400; color: var(--text-color); }
-.price-card ul { list-style: none; margin-bottom: 2rem; }
-.price-card li { margin-bottom: 1rem; }
-.price-card li i { color: var(--primary-neon); margin-right: 0.5rem; }
-
-/* NEW STATS SECTION */
-.stats-section {
-    background-color: #111;
-    padding: 80px 5%;
-}
-
-.stats-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    text-align: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
-
-.stat-card h2 {
-    font-size: 3.5rem;
-    font-weight: 800;
-    color: var(--primary-neon);
-}
-
-.stat-card p {
-    font-size: 1.1rem;
-    color: var(--text-color);
-}
-
-/* 11. TESTIMONIALS */
-.testimonial-item {
-    background: var(--card-bg);
-    padding: 2rem;
-    border-radius: 15px;
-    max-width: 600px;
-    margin: 1rem auto;
-    text-align: center;
-    border: 1px solid var(--border-color);
-}
-.quote-icon { font-size: 2rem; color: var(--primary-neon); margin-bottom: 1rem; }
-.testimonial-item p { font-style: italic; font-size: 1.1rem; margin-bottom: 1rem; }
-.testimonial-item h5 { font-size: 1rem; font-weight: 600; color: var(--heading-color); }
-
-/* 12. CONTACT */
-.contact-box {
-    max-width: 800px;
-    margin: 0 auto;
-    background: var(--card-bg);
-    padding: 3rem;
-    border-radius: 15px;
-    border: 1px solid var(--border-color);
-    text-align: center;
-}
-
-.modern-form .input-group { display: flex; gap: 1rem; margin-bottom: 1rem; }
-.modern-form input, .modern-form textarea {
-    width: 100%;
-    padding: 1rem;
-    background: #2a2a2a;
-    border: 1px solid #444;
-    border-radius: 8px;
-    color: var(--text-color);
-    font-size: 1rem;
-}
-.modern-form textarea { margin-bottom: 1.5rem; resize: vertical; }
-.btn-submit {
-    width: 100%;
-    padding: 1rem;
-    background: var(--primary-neon);
-    color: var(--bg-color);
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px var(--primary-neon);
-}
-.btn-submit:hover {
-    box-shadow: 0 0 20px var(--primary-neon);
-}
-
-/* 13. FOOTER */
-.main-footer {
-    background: #111;
-    padding: 60px 5% 20px;
-    border-top: 1px solid var(--border-color);
-}
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 40px;
-}
-.footer-logo h2 { font-size: 2rem; }
-.footer-links h4, .footer-social h4 { font-size: 1.2rem; color: var(--heading-color); margin-bottom: 1rem; }
-.footer-links ul { list-style: none; }
-.footer-links li { margin-bottom: 0.5rem; }
-.footer-links a { color: var(--text-color); text-decoration: none; transition: color 0.3s; }
-.footer-links a:hover { color: var(--primary-neon); }
-.social-icons a {
-    color: var(--text-color);
-    font-size: 1.5rem;
-    margin-right: 1rem;
-    transition: color 0.3s, transform 0.3s;
-}
-.social-icons a:hover { color: var(--primary-neon); transform: scale(1.2); }
-.footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid var(--border-color); }
-
-/* 14. FLOATING BUTTON */
-.floating-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--primary-neon);
-    color: var(--bg-color);
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.8rem;
-    text-decoration: none;
-    box-shadow: 0 0 20px var(--primary-neon);
-    z-index: 999;
-    transition: all 0.3s ease;
-}
-.floating-btn:hover {
-    transform: scale(1.1);
-}
-.floating-btn span { display: none; } /* Matnni yashirish */
-
-/* 15. ANIMATIONS & RESPONSIVENESS */
-.animate-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-.animate-on-scroll.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* 16. MOBILE-ONLY STYLES (Activated by JS) */
-body.mobile-view .nav-links {
-    position: absolute;
-    right: 0px;
-    height: 92vh;
-    top: 8vh;
-    background-color: var(--bg-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 60%;
-    transform: translateX(100%);
-    transition: transform 0.5s ease-in;
-    border-left: 1px solid var(--border-color);
-}
-
-body.mobile-view .nav-links li {
-    opacity: 0;
-    margin: 2rem 0;
-}
-
-body.mobile-view .nav-active {
-    transform: translateX(0%);
-}
-
-body.mobile-view .burger {
-    display: block;
-}
-
-body.mobile-view .about-grid,
-body.mobile-view .code-grid {
-    grid-template-columns: 1fr;
-}
-
-body.mobile-view .about-img { order: -1; }
-body.mobile-view .modern-form .input-group { flex-direction: column; }
-body.mobile-view .stats-container { flex-direction: row; justify-content: center; }
